@@ -17,7 +17,8 @@ import inspect
 import os
 import warnings
 from typing import Callable, Optional, Union
-
+import ipdb
+st = ipdb.set_trace
 import datasets
 import torch
 import torch.nn as nn
@@ -121,6 +122,7 @@ class SFTTrainer(Trainer):
         processing_class: Optional[
             Union[PreTrainedTokenizerBase, BaseImageProcessor, FeatureExtractionMixin, ProcessorMixin]
         ] = None,
+        cfg = None,
         model_init: Optional[Callable[[], PreTrainedModel]] = None,
         compute_metrics: Optional[Callable[[EvalPrediction], dict]] = None,
         callbacks: Optional[list[TrainerCallback]] = None,
@@ -307,6 +309,7 @@ class SFTTrainer(Trainer):
         super().__init__(
             model=model,
             args=args,
+            cfg=cfg,
             data_collator=data_collator,
             train_dataset=train_dataset,
             eval_dataset=eval_dataset,
